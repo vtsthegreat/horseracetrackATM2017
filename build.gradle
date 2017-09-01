@@ -1,0 +1,24 @@
+repositories {
+   mavenCentral()
+}
+apply plugin: 'java'
+apply plugin: 'application'
+mainClassName = 'com.horsetrack2017.HorseRaceTrackATM'
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+dependencies {
+   //compile 'org.apache.commons:commons-lang3:3.6'
+   testCompile 'junit:junit:4.12'
+}
+
+jar {
+   baseName = 'horsetrack2017'
+   version =  '1.0'
+    manifest {
+        attributes("Implementation-Title": baseName,
+            "Implementation-Version": version,
+            "Main-Class": mainClassName,
+            "Class-Path": configurations.compile.collect { it.getName() }.join(' '))
+    }
+}
