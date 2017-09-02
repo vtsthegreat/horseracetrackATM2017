@@ -1,16 +1,24 @@
 package com.horsetrack2017.util;
 
 public class Util {
-
-	public static boolean containsNumber(String input) {
-		return input.matches(".*\\d+.*");
+	public static Boolean isValidHorseNumber(String value) {
+		return value.matches("^[1-7]$");
 	}
-
-	public static boolean isNumber(String str) {
-		return str.matches("\\d+");
+	
+	public static Boolean isValidQuitCommand(String input) {
+		return input.matches("^[Qq]$");
 	}
-
-	public static boolean numberRange(Integer horseNumber) {
-		return horseNumber >= 1 && horseNumber <= 7 ? true : false;
+	
+	public static Boolean isValidReloadCommand(String input) {
+		return input.matches("^[Rr]$");
 	}
+	
+	public static Boolean isValidProcessCommand(String input) {
+		return input.matches("^[1-7]{1}[\" \"][0-9]+") || input.matches("^[Ww]{1}[\" \"][1-7]+") || input.matches("^[1-7]$");
+	}
+	
+	public static Boolean isNotValidHorseNumber(String input) {
+		return input.matches("\\d+") || input.matches("^[Ww]{1}[\" \"][0-9]+");
+	}
+	
 }
