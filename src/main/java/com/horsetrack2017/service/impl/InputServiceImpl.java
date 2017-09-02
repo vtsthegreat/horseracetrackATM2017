@@ -65,14 +65,7 @@ public class InputServiceImpl implements InputService {
 		String in = input.split(" ")[0];
 		// command start with a number
 		if (Util.isValidHorseNumber(in)) {
-			Integer horseNumber;
-			try {
-				horseNumber = Integer.valueOf(in);
-			} catch (NumberFormatException e) {
-				outputService.displayAllMessages("Invalid Horse Number: " + in);
-				return;
-			}
-
+			Integer horseNumber= Integer.valueOf(in);
 			// [1-7] <amount> - specifies the horse wagered on and the amount of the bet
 			if (input.length() > 1) {
 				Integer bet;
@@ -92,14 +85,10 @@ public class InputServiceImpl implements InputService {
 				// If the user enters a horse number that did win
 				StringBuilder sb = new StringBuilder("Payout: " + winner.getName() + ", $" + theOdds * theBet);
 				String result = dispenseService.dispenseWinnings(theBet * theOdds);
-				if (!result.isEmpty()) {
+				if (result.trim().length()>0) {
 					outputService.displayInventoryAndHorses();
 					outputService.displayMessage(sb.toString());
 					outputService.displayMessage(result);
-				} else {
-					// if the machine does not have enough cash on hand to make a complete and exact
-					// payout
-					outputService.displayAllMessages("Insufficient Funds: " + theBet * theOdds);
 				}
 			} else {
 				// If the user enters the number of a horse that did not win
@@ -123,22 +112,24 @@ public class InputServiceImpl implements InputService {
 
 	@Override
 	public void processInput(String input) {
-		if(Util.isBlankInputLine(input)) {
+		if (Util.isBlankInputLine(input)) {
 			return;
-		}else if(Util.isValidQuitCommand(input)) {
+		} else if (Util.isValidQuitCommand(input)) {
 			System.exit(0);
 			return;
-		}else if(Util.isValidReloadCommand(input)) {
+		} else if (Util.isValidReloadCommand(input)) {
 			cash.reload();
 			outputService.displayInventoryAndHorses();
 			return;
-		}else if(Util.isValidProcessCommand(input)){
+		} else if (Util.isValidProcessCommand(input)) {
 			processCommand(input);
-		}else if(Util.isNotValidHorseNumber(input)){
+			return;
+		} else if (Util.isNotValidHorseNumber(input)) {
 			outputService.displayAllMessages("Invalid Horse Number: " + input);
 			return;
-		}else {
+		} else {
 			outputService.displayAllMessages("Invalid Command: " + input);
+			return;
 		}
 	}
 
