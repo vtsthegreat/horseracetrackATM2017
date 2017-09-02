@@ -123,7 +123,9 @@ public class InputServiceImpl implements InputService {
 
 	@Override
 	public void processInput(String input) {
-		if(Util.isValidQuitCommand(input)) {
+		if(Util.isBlankInputLine(input)) {
+			return;
+		}else if(Util.isValidQuitCommand(input)) {
 			System.exit(0);
 			return;
 		}else if(Util.isValidReloadCommand(input)) {

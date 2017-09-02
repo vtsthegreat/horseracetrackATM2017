@@ -20,5 +20,9 @@ public class Util {
 	public static Boolean isNotValidHorseNumber(String input) {
 		return input.matches("\\d+") || input.matches("^[Ww]{1}[\" \"][0-9]+");
 	}
+
+	public static boolean isBlankInputLine(String input) {
+		return input.isEmpty();
+	}
 	
 }
